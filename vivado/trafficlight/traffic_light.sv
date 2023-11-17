@@ -17,8 +17,10 @@ module traffic_light();
    reg clk;
    reg [3:0] state, next_state;
 
-   reg nscar_g, nscar_r, nscar_y, nscar_l;
-   reg ewcar_g, ewcar_r, ewcar_y, ewcar_l;
+   reg nsrcar_g, nsrcar_r, nsrcar_y, nsrcar_l;
+   reg nslcar_g, nslcar_r, nslcar_y, nslcar_l;
+   reg ewlcar_g, ewlcar_r, ewlcar_y, ewlcar_l;
+   reg ewrcar_g, ewrcar_r, ewrcar_y, ewrcar_l;
 
    reg [7:0] timer;
 
@@ -31,14 +33,22 @@ module traffic_light();
       timer = 1;
 
       // 신호등 led 출력
-      nscar_g = 1; 
-      nscar_y = 0;
-      nscar_r = 0;
-      nscar_l = 0;
-      ewcar_g = 0;
-      ewcar_y = 0;
-      ewcar_r = 1;
-      ewcar_l = 0;
+      nslcar_g = 1; 
+      nslcar_y = 0;
+      nslcar_r = 0;
+      nslcar_l = 0;
+      nsrcar_g = 1; 
+      nsrcar_y = 0;
+      nsrcar_r = 0;
+      nsrcar_l = 0;
+      ewlcar_g = 0;
+      ewlcar_y = 0;
+      ewlcar_r = 1;
+      ewlcar_l = 0;
+      ewrcar_g = 0;
+      ewrcar_y = 0;
+      ewrcar_r = 1;
+      ewrcar_l = 0;
 
       rst_n = 1;
       #30
@@ -119,160 +129,241 @@ module traffic_light();
     always @ (posedge clk or negedge rst_n) begin
 
        if (~rst_n) begin
-         nscar_g <= 1; 
-         nscar_y <= 0;
-         nscar_r <= 0;
-         nscar_l <= 0;
-         ewcar_g <= 0;
-         ewcar_y <= 0;
-         ewcar_r <= 1;
-         ewcar_l <= 0;
-         timer <= 1;
+            nslcar_g <= 1; 
+            nslcar_y <= 0;
+            nslcar_r <= 0;
+            nslcar_l <= 0;
+            nsrcar_g <= 1; 
+            nsrcar_y <= 0;
+            nsrcar_r <= 0;
+            nsrcar_l <= 0;
+            ewlcar_g <= 0;
+            ewlcar_y <= 0;
+            ewlcar_r <= 1;
+            ewlcar_l <= 0;
+            ewrcar_g <= 0;
+            ewrcar_y <= 0;
+            ewrcar_r <= 1;
+            ewrcar_l <= 0;
+            timer <= 1;
        end
        else begin
           case(state) 
             S_RST: begin
-                nscar_g <= 1; 
-                nscar_y <= 0;
-                nscar_r <= 0;
-                nscar_l <= 0;
-                ewcar_g <= 0;
-                ewcar_y <= 0;
-                ewcar_r <= 1;
-                ewcar_l <= 0;
-                timer <= 1;
-            end 
+            nslcar_g <= 1; 
+            nslcar_y <= 0;
+            nslcar_r <= 0;
+            nslcar_l <= 0;
+            nsrcar_g <= 1; 
+            nsrcar_y <= 0;
+            nsrcar_r <= 0;
+            nsrcar_l <= 0;
+            ewlcar_g <= 0;
+            ewlcar_y <= 0;
+            ewlcar_r <= 1;
+            ewlcar_l <= 0;
+            ewrcar_g <= 0;
+            ewrcar_y <= 0;
+            ewrcar_r <= 1;
+            ewrcar_l <= 0;
+            timer <= 1;
+       end 
 
             S0: begin
-                nscar_g <= 1; 
-                nscar_y <= 0;
-                nscar_r <= 0;
-                nscar_l <= 0;
-                ewcar_g <= 0;
-                ewcar_y <= 0;
-                ewcar_r <= 1;
-                ewcar_l <= 0;
-                timer <= 1;
+            nslcar_g <= 1; 
+            nslcar_y <= 0;
+            nslcar_r <= 0;
+            nslcar_l <= 0;
+            nsrcar_g <= 1; 
+            nsrcar_y <= 0;
+            nsrcar_r <= 0;
+            nsrcar_l <= 0;
+            ewlcar_g <= 0;
+            ewlcar_y <= 0;
+            ewlcar_r <= 1;
+            ewlcar_l <= 0;
+            ewrcar_g <= 0;
+            ewrcar_y <= 0;
+            ewrcar_r <= 1;
+            ewrcar_l <= 0;
+            timer <= 1;
                 
                if (timer < 40)
                   timer <= timer +1;
                else
                   timer <= 1;
-            end 
+           end 
 
             S1: begin
-                nscar_g <= 0; 
-                nscar_y <= 1;
-                nscar_r <= 0;
-                nscar_l <= 0;
-                ewcar_g <= 0;
-                ewcar_y <= 0;
-                ewcar_r <= 1;
-                ewcar_l <= 0;
-                timer <= 1;
+            
+            nslcar_g <= 0; 
+            nslcar_y <= 1;
+            nslcar_r <= 0;
+            nslcar_l <= 0;
+            nsrcar_g <= 0; 
+            nsrcar_y <= 1;
+            nsrcar_r <= 0;
+            nsrcar_l <= 0;
+            ewlcar_g <= 0;
+            ewlcar_y <= 0;
+            ewlcar_r <= 1;
+            ewlcar_l <= 0;
+            ewrcar_g <= 0;
+            ewrcar_y <= 0;
+            ewrcar_r <= 1;
+            ewrcar_l <= 0;
+            timer <= 1;
 
                if (timer < 5)
                   timer <= timer +1;
                else
                   timer <= 1;
-            end 
+           end 
 
             S2: begin
-                nscar_g <= 0; 
-                nscar_y <= 0;
-                nscar_r <= 1;
-                nscar_l <= 0;
-                ewcar_g <= 0;
-                ewcar_y <= 0;
-                ewcar_r <= 0;
-                ewcar_l <= 1;
-                timer <= 1;
+            nslcar_g <= 0; 
+            nslcar_y <= 0;
+            nslcar_r <= 1;
+            nslcar_l <= 0;
+            nsrcar_g <= 0; 
+            nsrcar_y <= 0;
+            nsrcar_r <= 1;
+            nsrcar_l <= 0;
+            ewlcar_g <= 0;
+            ewlcar_y <= 0;
+            ewlcar_r <= 0;
+            ewlcar_l <= 1;
+            ewrcar_g <= 0;
+            ewrcar_y <= 0;
+            ewrcar_r <= 0;
+            ewrcar_l <= 1;
+            timer <= 1;
 
                if (timer < 20)
                   timer <= timer +1;
                else
                   timer <= 1;
-            end 
-             S3: begin
-                nscar_g <= 0; 
-                nscar_y <= 0;
-                nscar_r <= 1;
-                nscar_l <= 0;
-                ewcar_g <= 0;
-                ewcar_y <= 1;
-                ewcar_r <= 0;
-                ewcar_l <= 0;
-                timer <= 1;
+           end 
+            S3: begin
+            nslcar_g <= 0; 
+            nslcar_y <= 0;
+            nslcar_r <= 1;
+            nslcar_l <= 0;
+            nsrcar_g <= 0; 
+            nsrcar_y <= 0;
+            nsrcar_r <= 1;
+            nsrcar_l <= 0;
+            ewlcar_g <= 0;
+            ewlcar_y <= 1;
+            ewlcar_r <= 0;
+            ewlcar_l <= 0;
+            ewrcar_g <= 0;
+            ewrcar_y <= 1;
+            ewrcar_r <= 0;
+            ewrcar_l <= 0;
+            timer <= 1;
 
                if (timer < 5)
                   timer <= timer +1;
                else
                   timer <= 1;
-            end 
-             S4: begin
-                nscar_g <= 0; 
-                nscar_y <= 0;
-                nscar_r <= 1;
-                nscar_l <= 0;
-                ewcar_g <= 1;
-                ewcar_y <= 0;
-                ewcar_r <= 0;
-                ewcar_l <= 0;
-                timer <= 1;
+           end 
+            S4: begin
+            nslcar_g <= 0; 
+            nslcar_y <= 0;
+            nslcar_r <= 1;
+            nslcar_l <= 0;
+            nsrcar_g <= 0; 
+            nsrcar_y <= 0;
+            nsrcar_r <= 1;
+            nsrcar_l <= 0;
+            ewlcar_g <= 1;
+            ewlcar_y <= 0;
+            ewlcar_r <= 0;
+            ewlcar_l <= 0;
+            ewrcar_g <= 1;
+            ewrcar_y <= 0;
+            ewrcar_r <= 0;
+            ewrcar_l <= 0;
+            timer <= 1;
 
                if (timer < 40)
                   timer <= timer +1;
                else
                   timer <= 1;
-            end 
-             S5: begin
-                nscar_g <= 0; 
-                nscar_y <= 0;
-                nscar_r <= 1;
-                nscar_l <= 0;
-                ewcar_g <= 0;
-                ewcar_y <= 1;
-                ewcar_r <= 0;
-                ewcar_l <= 0;
-                timer <= 1;
+           end 
+            S5: begin
+            nslcar_g <= 0; 
+            nslcar_y <= 0;
+            nslcar_r <= 1;
+            nslcar_l <= 0;
+            nsrcar_g <= 1; 
+            nsrcar_y <= 0;
+            nsrcar_r <= 1;
+            nsrcar_l <= 0;
+            ewlcar_g <= 0;
+            ewlcar_y <= 1;
+            ewlcar_r <= 0;
+            ewlcar_l <= 0;
+            ewrcar_g <= 0;
+            ewrcar_y <= 1;
+            ewrcar_r <= 0;
+            ewrcar_l <= 0;
+            timer <= 1;
 
                if (timer < 5)
                   timer <= timer +1;
                else
                   timer <= 1;
-            end 
-             S6: begin
-                nscar_g <= 0; 
-                nscar_y <= 0;
-                nscar_r <= 0;
-                nscar_l <= 1;
-                ewcar_g <= 0;
-                ewcar_y <= 0;
-                ewcar_r <= 1;
-                ewcar_l <= 0;
-                timer <= 1;
+           end 
+            S6: begin
+            nslcar_g <= 0; 
+            nslcar_y <= 0;
+            nslcar_r <= 0;
+            nslcar_l <= 1;
+            nsrcar_g <= 0; 
+            nsrcar_y <= 0;
+            nsrcar_r <= 0;
+            nsrcar_l <= 1;
+            ewlcar_g <= 0;
+            ewlcar_y <= 0;
+            ewlcar_r <= 1;
+            ewlcar_l <= 0;
+            ewrcar_g <= 0;
+            ewrcar_y <= 0;
+            ewrcar_r <= 1;
+            ewrcar_l <= 0;
+            timer <= 1;
 
                if (timer < 20)
                   timer <= timer +1;
                else
                   timer <= 1;
-            end 
-             S7: begin
-                nscar_g <= 0; 
-                nscar_y <= 1;
-                nscar_r <= 0;
-                nscar_l <= 0;
-                ewcar_g <= 0;
-                ewcar_y <= 0;
-                ewcar_r <= 1;
-                ewcar_l <= 0;
-                timer <= 1;
+           end 
+            S7: begin
+            nslcar_g <= 0; 
+            nslcar_y <= 1;
+            nslcar_r <= 0;
+            nslcar_l <= 0;
+            nsrcar_g <= 0; 
+            nsrcar_y <= 1;
+            nsrcar_r <= 0;
+            nsrcar_l <= 0;
+            ewlcar_g <= 0;
+            ewlcar_y <= 0;
+            ewlcar_r <= 1;
+            ewlcar_l <= 0;
+            ewrcar_g <= 0;
+            ewrcar_y <= 0;
+            ewrcar_r <= 1;
+            ewrcar_l <= 0;
+            timer <= 1;
 
                if (timer < 5)
                   timer <= timer +1;
                else
                   timer <= 1;
-            end 
+           end 
          endcase
        end
 
