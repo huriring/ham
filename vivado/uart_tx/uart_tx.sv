@@ -12,6 +12,7 @@ module uart_tx #(
  )
  (
     input wire clk,
+    input wire rst_n,
 	output reg tx
  );
  
@@ -19,7 +20,7 @@ module uart_tx #(
  
  wire mclk;
  reg clk_uart;
- wire rst_n;
+
  
  reg [7:0] data;
  reg [3:0] idx_byte;
@@ -38,7 +39,7 @@ module uart_tx #(
 
 /*clock */
 always @(posedge mclk) begin
-    static int cnt;
+    reg cnt;
     if(cnt >= 50) begin
         cnt <= 0;
         clk_uart <= ~clk_uart;
@@ -65,10 +66,11 @@ ila_0 ila(
 	,.probe7 	(next_state)
 );
 
-vio_0 vio(
+/* vio_0 vio(
     .clk (mclk),
     .probe_out0 (rst_n)
 );
+*/
 /*state 넘어가기 sequence logic*/
 always @(posedge clk_uart or negedge rst_n)begin
 
